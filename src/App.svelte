@@ -1,4 +1,5 @@
 <script>
+
   import firebaseConfig from '../src/config/fb'
   import moment from 'moment'
   import { quintOut } from 'svelte/easing'
@@ -16,14 +17,15 @@
     orderBy,
     query,
     serverTimestamp,
-documentId,
   } from 'firebase/firestore'
+
   let arr = writable([])
-  initializeApp(firebaseConfig)
   let msg = ''
+  let nick = ''
+
+  initializeApp(firebaseConfig)
+
   const db = getFirestore()
-
-
   const colRef = collection(db, 'books')
   const q = query(colRef, orderBy('createdAt', 'desc'))
 
@@ -49,22 +51,22 @@ documentId,
       addMsg()
     }
   }
-  let nick = ''
+  
   function addMsg() {
     // @ts-ignore
-    if(document.getElementById('nick').value.trim()==""){
+    if (document.getElementById('nick').value.trim() == '') {
       alert('name cannot be empty!')
       msg = ''
       return
     }
     // @ts-ignore
-    if(document.getElementById('msg').value.trim()==""){
+    if (document.getElementById('msg').value.trim() == '') {
       alert('msg cannot be empty~~!!')
       return
     }
 
     addDoc(colRef, {
-      msg: nick+"："+msg,
+      msg: nick + '：' + msg,
       createdAt: serverTimestamp(),
     }).then(() => {
       msg = ''
@@ -72,10 +74,10 @@ documentId,
     // @ts-ignore
     document.getElementById('nick').disabled = true
   }
-  
-  function addName(){
+
+  function addName() {
     // @ts-ignore
-    if(document.getElementById('nick').value.trim()==""){
+    if (document.getElementById('nick').value.trim() == '') {
       alert('name cannot be empty!')
       return
     }
@@ -83,31 +85,42 @@ documentId,
     document.getElementById('nick').disabled = true
   }
 
- function handleaddNamebykey(e){
-  if (e.key === 'Enter') {
-    addName()
+  function handleaddNamebykey(e) {
+    if (e.key === 'Enter') {
+      addName()
     }
- }
+  }
 </script>
 
-<div style="margin: 0 auto;display:flex;justify-content:center">
+
+
+<div style="margin: 0 auto;display:flex;justify-content:center;margin-top:20px">
   <label for="name">Name here => </label>
-  <input style="width: 200px;" on:keyup={handleaddNamebykey}  type="text" id="nick" name="name" bind:value={nick}>
+  <input
+    on:keyup={handleaddNamebykey}
+    type="text"
+    id="nick"
+    name="name"
+    bind:value={nick}
+  />
   <span style="color: pink;">o(*￣︶￣*)o </span>
 </div>
 
 <hr style="margin:20px ;" />
+
+
 <main>
   <div id="top">
+    <button on:click={addMsg}>Send</button>
     <input
-    style="color:pink"
+      style="color:pink"
       placeholder="message here~Enter~"
       id="msg"
       on:keyup={handlekeyup}
       bind:value={msg}
       type="text"
     />
-    <button on:click={addMsg}>Send</button>
+    
   </div>
 
   <div>
@@ -127,46 +140,5 @@ documentId,
       {/each}
     </ul>
   </div>
+
 </main>
-
-<style>
-  * {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 30px;
-  }
-
-  li {
-    margin-bottom: 10px;
-    background: #e3e3e3;
-    border-radius: 10px;
-    padding: 5px;
-    word-break: break-all;
-    white-space: pre-wrap;
-    background: pink;
-    color: #333;
-  }
-
-  ul {
-    margin: 0 auto;
-  }
-
-  main {
-    margin: 0 auto;
-    width: 500px;
-  }
-
-  #msg {
-    width: 100%;
-    font-size: 30px;
-    padding: 10px;
-    border-radius: 6px;
-    border: solid 2px pink;
-  }
-
-  #top {
-    display: flex;
-    margin-bottom: 20px;
-  }
-</style>
