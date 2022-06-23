@@ -16,6 +16,7 @@
     query,
     serverTimestamp,
   } from 'firebase/firestore'
+  import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from 'firebase/auth'
 
   const firebaseConfig = {
     apiKey: 'AIzaSyB8KhwqSVpwhxbNguFTnoMwCtJQlwVUUrA',
@@ -29,6 +30,10 @@
   initializeApp(firebaseConfig)
   let msg = ''
   const db = getFirestore()
+
+
+  const auth = getAuth()
+
 
   const colRef = collection(db, 'books')
   const q = query(colRef, orderBy('createdAt', 'desc'))
@@ -55,17 +60,32 @@
       addMsg()
     }
   }
-
+  
   function addMsg() {
+    let nick = document.getElementById('u')
+    
     addDoc(colRef, {
-      msg: msg,
+      msg: nick.value+'：'+msg,
       createdAt: serverTimestamp(),
     }).then(() => {
       msg = ''
     })
   }
-</script>
 
+
+
+
+
+</script>
+<div style="margin: 0 auto;display:flex;justify-content:center">
+  <label for="username">选择一个名字：</label>
+  <select name="username" id="u">
+    <option value="鬼之首">鬼之首</option>
+    <option value="似血">似血</option>
+  </select>
+</div>
+
+<hr style="margin:20px ;">
 <main>
   <div id="top">
     <input
@@ -82,10 +102,10 @@
     <ul>
       {#each $arr as item (item.id)}
         <li
-          animate:flip={{ duration: 500, easing: quintOut }}
+          animate:flip={{ duration: 1000, easing: quintOut }}
           on:dblclick={() => del(item.id)}
-          in:scale={{ duration: 500, opacity: 0.5, easing: quintOut }}
-          out:scale={{ duration: 500, opacity: 0.5, easing: quintOut }}
+          in:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
+          out:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
         >
           <div style="font-size: 16px;display:block;color:white">
             {getTime(item.createdAt)}
