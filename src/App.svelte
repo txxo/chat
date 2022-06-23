@@ -102,7 +102,7 @@
       type="text"
     />
     {#if hasMsg}
-      <p class="err">message…can not be empty~</p>
+      <p class="err">message…can't be empty~</p>
     {/if}
     
   </div>
