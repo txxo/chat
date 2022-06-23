@@ -1,4 +1,5 @@
 <script>
+  import firebaseConfig from '../src/config/fb'
   import moment from 'moment'
   import { quintOut } from 'svelte/easing'
   import { flip } from 'svelte/animate'
@@ -15,16 +16,8 @@
     orderBy,
     query,
     serverTimestamp,
+documentId,
   } from 'firebase/firestore'
-
-  const firebaseConfig = {
-    apiKey: 'AIzaSyB8KhwqSVpwhxbNguFTnoMwCtJQlwVUUrA',
-    authDomain: 'demo1-aa7a1.firebaseapp.com',
-    projectId: 'demo1-aa7a1',
-    storageBucket: 'demo1-aa7a1.appspot.com',
-    messagingSenderId: '999396912644',
-    appId: '1:999396912644:web:7014e77ff3a20218f04f51',
-  }
   let arr = writable([])
   initializeApp(firebaseConfig)
   let msg = ''
@@ -56,25 +49,48 @@
       addMsg()
     }
   }
-
+  let nick = ''
   function addMsg() {
-    let nick = document.getElementById('u')
+    // @ts-ignore
+    if(document.getElementById('nick').value.trim()==""){
+      alert('name cannot be empty!')
+      msg = ''
+      return
+    }
+    // @ts-ignore
+    if(document.getElementById('msg').value.trim()==""){
+      alert('msg cannot be empty~~!!')
+      return
+    }
 
     addDoc(colRef, {
-      msg: nick.value + '：' + msg,
+      msg: nick+"："+msg,
       createdAt: serverTimestamp(),
     }).then(() => {
       msg = ''
     })
   }
+  
+  function addName(){
+    // @ts-ignore
+    if(document.getElementById('nick').value.trim()==""){
+      alert('name cannot be empty!')
+      return
+    }
+    // @ts-ignore
+    document.getElementById('nick').disabled = true
+  }
+
+ function handleaddNamebykey(e){
+  if (e.key === 'Enter') {
+    addName()
+    }
+ }
 </script>
 
 <div style="margin: 0 auto;display:flex;justify-content:center">
-  <label for="username">选择一个名字：</label>
-  <select name="username" id="u">
-    <option value="鬼之首">鬼之首</option>
-    <option value="似血">似血</option>
-  </select>
+  <label for="name">name=></label>
+  <input on:keyup={handleaddNamebykey}  type="text" id="nick" name="name" bind:value={nick}><button on:click={addName}>Confirm</button>
 </div>
 
 <hr style="margin:20px ;" />
