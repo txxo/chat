@@ -86,9 +86,9 @@
     id="nick"
     name="name"
     bind:value={nick}
-  />
+  /><button id="send" on:click={addMsg}>Send</button>
   {#if hasName}
-    <p class="err">name…cannot be empty~</p>
+    <p class="err">name…can't be empty~</p>
   {/if}
 </div>
 
@@ -104,7 +104,7 @@
     {#if hasMsg}
       <p class="err">message…can not be empty~</p>
     {/if}
-    <button id="send" on:click={addMsg}>Send</button>
+    
   </div>
 
   <div>

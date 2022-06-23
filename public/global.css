@@ -15,7 +15,7 @@ li {
   padding: 5px;
   word-break: break-all;
   white-space: pre-wrap;
-  background: lightpink;
+  background: antiquewhite;
   color: #333;
   box-shadow: 2px 3px 4px black;
 }
@@ -38,7 +38,7 @@ ul {
   background: #333;
   box-shadow: 2px 3px 4px black;
   text-align: center;
-  color: pink;
+  color: antiquewhite;
 }
 
 #nick::placeholder{
@@ -58,7 +58,7 @@ main {
   border-radius: 6px;
   border: none;
   background: #333;
-  color: pink;
+  color: antiquewhite;
 
   box-shadow: 2px 3px 4px black;
 }
@@ -74,14 +74,19 @@ main {
 #top {
   text-align: center;
   margin-bottom: 20px;
-  margin-top: 20px;
+
+
 }
 
 #send{
   border-radius: 10px;
   margin: 10px;
-  padding: 10px;
+  padding: 7px;
   transition: 1s;
+  background-color: antiquewhite;
+  color: #333;
+  border: 1px solid black;
+
 }
 #send:active{
   font-size: 30px;
@@ -95,5 +100,6 @@ main {
 #topname {
   text-align: center;
   margin: 0 auto;
-  margin-top:20px
+  margin-top:20px;
+  justify-content: center;
 }
