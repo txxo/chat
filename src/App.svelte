@@ -69,6 +69,8 @@ documentId,
     }).then(() => {
       msg = ''
     })
+    // @ts-ignore
+    document.getElementById('nick').disabled = true
   }
   
   function addName(){
@@ -89,14 +91,16 @@ documentId,
 </script>
 
 <div style="margin: 0 auto;display:flex;justify-content:center">
-  <label for="name">name=></label>
-  <input on:keyup={handleaddNamebykey}  type="text" id="nick" name="name" bind:value={nick}><button on:click={addName}>Confirm</button>
+  <label for="name">Name here => </label>
+  <input style="width: 200px;" on:keyup={handleaddNamebykey}  type="text" id="nick" name="name" bind:value={nick}>
+  <span style="color: pink;">o(*￣︶￣*)o </span>
 </div>
 
 <hr style="margin:20px ;" />
 <main>
   <div id="top">
     <input
+    style="color:pink"
       placeholder="message here~Enter~"
       id="msg"
       on:keyup={handlekeyup}
