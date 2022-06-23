@@ -16,7 +16,6 @@
     query,
     serverTimestamp,
   } from 'firebase/firestore'
-  import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from 'firebase/auth'
 
   const firebaseConfig = {
     apiKey: 'AIzaSyB8KhwqSVpwhxbNguFTnoMwCtJQlwVUUrA',
@@ -30,9 +29,6 @@
   initializeApp(firebaseConfig)
   let msg = ''
   const db = getFirestore()
-
-
-  const auth = getAuth()
 
 
   const colRef = collection(db, 'books')
@@ -60,23 +56,19 @@
       addMsg()
     }
   }
-  
+
   function addMsg() {
     let nick = document.getElementById('u')
-    
+
     addDoc(colRef, {
-      msg: nick.value+'：'+msg,
+      msg: nick.value + '：' + msg,
       createdAt: serverTimestamp(),
     }).then(() => {
       msg = ''
     })
   }
-
-
-
-
-
 </script>
+
 <div style="margin: 0 auto;display:flex;justify-content:center">
   <label for="username">选择一个名字：</label>
   <select name="username" id="u">
@@ -85,7 +77,7 @@
   </select>
 </div>
 
-<hr style="margin:20px ;">
+<hr style="margin:20px ;" />
 <main>
   <div id="top">
     <input
