@@ -1,5 +1,4 @@
 <script>
-
   import firebaseConfig from '../src/config/fb'
   import moment from 'moment'
   import { quintOut } from 'svelte/easing'
@@ -22,6 +21,8 @@
   let arr = writable([])
   let msg = ''
   let nick = ''
+  let hasMsg = false
+  let hasName = false
 
   initializeApp(firebaseConfig)
 
@@ -51,76 +52,59 @@
       addMsg()
     }
   }
-  
+
   function addMsg() {
     // @ts-ignore
     if (document.getElementById('nick').value.trim() == '') {
-      alert('name cannot be empty!')
+      hasName = true
       msg = ''
       return
     }
     // @ts-ignore
     if (document.getElementById('msg').value.trim() == '') {
-      alert('msg cannot be empty~~!!')
+      hasName = false
+      hasMsg = true
       return
     }
-
+    hasMsg = false
     addDoc(colRef, {
-      msg: nick + '：' + msg,
+      msg: nick + '： ' + msg,
       createdAt: serverTimestamp(),
     }).then(() => {
       msg = ''
     })
+    hasName = false
     // @ts-ignore
     document.getElementById('nick').disabled = true
-  }
-
-  function addName() {
-    // @ts-ignore
-    if (document.getElementById('nick').value.trim() == '') {
-      alert('name cannot be empty!')
-      return
-    }
-    // @ts-ignore
-    document.getElementById('nick').disabled = true
-  }
-
-  function handleaddNamebykey(e) {
-    if (e.key === 'Enter') {
-      addName()
-    }
   }
 </script>
 
-
-
-<div style="margin: 0 auto;display:flex;justify-content:center;margin-top:20px">
-  <label for="name">Name here => </label>
+<div id="topname">
   <input
-    on:keyup={handleaddNamebykey}
+    placeholder="name…"
     type="text"
     id="nick"
     name="name"
     bind:value={nick}
   />
-  <span style="color: pink;">o(*￣︶￣*)o </span>
+  {#if hasName}
+    <p class="err">name…cannot be empty~</p>
+  {/if}
 </div>
-
-<hr style="margin:20px ;" />
-
 
 <main>
   <div id="top">
-    <button on:click={addMsg}>Send</button>
     <input
-      style="color:pink"
-      placeholder="message here~Enter~"
+      placeholder="message…"
       id="msg"
       on:keyup={handlekeyup}
       bind:value={msg}
       type="text"
     />
-    
+    {#if hasMsg}
+      <p class="err">message…can not be empty~</p>
+    {/if}
+    <button id="send" on:click={addMsg}>Send</button>
   </div>
 
   <div>
@@ -132,7 +116,7 @@
           in:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
           out:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
         >
-          <div style="font-size: 16px;display:block;color:white">
+          <div id="time">
             {getTime(item.createdAt)}
           </div>
           {item.msg}
@@ -140,5 +124,4 @@
       {/each}
     </ul>
   </div>
-
 </main>
