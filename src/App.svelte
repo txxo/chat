@@ -23,6 +23,7 @@
   let nick = ''
   let hasMsg = false
   let hasName = false
+  let nickn = null
 
   initializeApp(firebaseConfig)
 
@@ -54,39 +55,41 @@
   }
 
   function addMsg() {
-    // @ts-ignore
-    if (document.getElementById('nick').value.trim() == '') {
+    if (nick.trim() == '') {
       hasName = true
       msg = ''
       return
     }
-    // @ts-ignore
-    if (document.getElementById('msg').value.trim() == '') {
+
+    if (msg.trim() == '') {
       hasName = false
       hasMsg = true
       return
     }
+
     hasMsg = false
+
     addDoc(colRef, {
       msg: nick + '： ' + msg,
       createdAt: serverTimestamp(),
     }).then(() => {
       msg = ''
     })
+
     hasName = false
-    // @ts-ignore
-    document.getElementById('nick').disabled = true
+    nickn.disabled = true
   }
 </script>
 
 <div id="topname">
   <input
+    bind:this={nickn}
     placeholder="name…"
     type="text"
     id="nick"
-    name="name"
     bind:value={nick}
-  /><button id="send" on:click={addMsg}>Send</button>
+  />
+  <button id="send" on:click={addMsg}>Send</button>
   {#if hasName}
     <p class="err">name…can't be empty~</p>
   {/if}
@@ -104,7 +107,6 @@
     {#if hasMsg}
       <p class="err">message…can't be empty~</p>
     {/if}
-    
   </div>
 
   <div>
