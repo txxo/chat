@@ -1,6 +1,6 @@
 <script>
   import MsgList from './components/MsgList.svelte'
-  import Name from './Name.svelte'
+  import Name from './components/Name.svelte'
 </script>
 
 <main>
