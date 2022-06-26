@@ -5,26 +5,22 @@
   let nick = ''
   let nickn = null
   let sound
+
+  $: if ($addSound === true) {
+    console.log($addSound)
+    sound.play()
+    $addSound = false
+  }
+
   function handlekeyup(e) {
     if (e.key === 'Enter') {
       addMsg(nick, msg, nickn)
       msg = ''
-      if ($hasMsg) {
-        if ($addSound === true) {
-          sound.play()
-        }
-      }
     }
   }
   function clickSend() {
     addMsg(nick, msg, nickn)
-
     msg = ''
-    if ($hasMsg) {
-      if ($addSound === true) {
-        sound.play()
-      }
-    }
   }
 </script>
 

@@ -3,22 +3,23 @@
   import { del } from '../config/fb'
   import { scale } from 'svelte/transition'
   import moment from 'moment'
-  import {delSound} from '../config/store'
+  import { delSound } from '../config/store'
   export let item
   let sound
   function getTime(t) {
     return moment(t * 1000).format('MM-DD  HH:mm:ss')
   }
+  $: if ($delSound === true) {
+    sound.play()
+    $delSound = false
+  }
   function handleDbclick() {
     del(item.id)
-    if ($delSound === true) {
-        sound.play()
-      }
   }
 </script>
 
 <li
-  on:dblclick={()=>handleDbclick()}
+  on:dblclick={handleDbclick}
   in:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
   out:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
 >
