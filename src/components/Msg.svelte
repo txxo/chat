@@ -1,5 +1,4 @@
 <script>
-  import { quintOut } from 'svelte/easing'
   import { del } from '../config/fb'
   import { scale } from 'svelte/transition'
   import moment from 'moment'
@@ -23,8 +22,8 @@
 
 <li
   on:dblclick={handleDbclick}
-  in:scale={{ duration: 1000,delay:500, opacity: 0, easing: quintOut }}
-  out:scale={{ duration: 1000,delay:500, opacity: 0, easing: quintOut }}
+  in:scale={{ duration: 1200, opacity: 0 }}
+  out:scale={{ duration: 1200, opacity: 0 }}
 >
   <div id="time">
     {getTime(item.createdAt)}

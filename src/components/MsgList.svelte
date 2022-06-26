@@ -2,14 +2,13 @@
   import { arr } from '../config/store'
   import Msg from './Msg.svelte'
   import { flip } from 'svelte/animate'
-  import { quintOut } from 'svelte/easing'
   let sound
 </script>
 
 <div>
   <ul>
     {#each $arr as item (item.id)}
-      <div animate:flip={{ duration: 1000,delay:500, easing: quintOut }}>
+      <div animate:flip={{ duration: 1200 }}>
         <Msg {item} on:playSound={sound.play()} />
       </div>
     {/each}
