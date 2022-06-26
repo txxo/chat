@@ -1,6 +1,6 @@
 <script>
   import { addMsg } from '../config/fb'
-  import { hasMsg, hasName, addSound } from '../config/store'
+  import { hasMsg, hasName } from '../config/store'
   let msg = ''
   let nick = ''
   let nickn = null

@@ -3,10 +3,11 @@
   import { del } from '../config/fb'
   import { scale } from 'svelte/transition'
   import moment from 'moment'
-  import { delSound } from '../config/store'
-  import { afterUpdate } from 'svelte'
+  import { createEventDispatcher } from 'svelte'
+  import { beforeUpdate } from 'svelte'
   export let item
-  let sound
+  let dispatcher = createEventDispatcher()
+
   function getTime(t) {
     return moment(t * 1000).format('MM-DD  HH:mm:ss')
   }
@@ -15,8 +16,8 @@
     del(item.id)
   }
 
-  afterUpdate(() => {
-    sound.play()
+  beforeUpdate(() => {
+    dispatcher('playSound')
   })
 </script>
 
@@ -30,7 +31,3 @@
   </div>
   {item.msg}
 </li>
-
-<audio style="display: none;" bind:this={sound} controls>
-  <source src="/mixkit-long-pop.wav" type="audio/wav" />
-</audio>
