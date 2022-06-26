@@ -4,13 +4,6 @@
   let msg = ''
   let nick = ''
   let nickn = null
-  let sound
-
-  $: if ($addSound === true) {
-    console.log($addSound)
-    sound.play()
-    $addSound = false
-  }
 
   function handlekeyup(e) {
     if (e.key === 'Enter') {
@@ -50,6 +43,3 @@
     <p class="err">Please input your Msg~</p>
   {/if}
 </div>
-<audio style="display: none;" bind:this={sound} controls>
-  <source src="/mixkit-long-pop.wav" type="audio/wav" />
-</audio>

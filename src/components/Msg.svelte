@@ -4,18 +4,20 @@
   import { scale } from 'svelte/transition'
   import moment from 'moment'
   import { delSound } from '../config/store'
+  import { afterUpdate } from 'svelte'
   export let item
   let sound
   function getTime(t) {
     return moment(t * 1000).format('MM-DD  HH:mm:ss')
   }
-  $: if ($delSound === true) {
-    sound.play()
-    $delSound = false
-  }
+
   function handleDbclick() {
     del(item.id)
   }
+
+  afterUpdate(() => {
+    sound.play()
+  })
 </script>
 
 <li
@@ -30,5 +32,5 @@
 </li>
 
 <audio style="display: none;" bind:this={sound} controls>
-  <source src="/mixkit-correct-answer-tone.wav" type="audio/wav" />
+  <source src="/mixkit-long-pop.wav" type="audio/wav" />
 </audio>
