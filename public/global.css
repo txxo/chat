@@ -38,7 +38,6 @@ ul {
   border-radius: 6px;
   border: none;
   background: #eee;
-  box-shadow: 2px 3px 4px black;
   text-align: center;
   color: #fb7299;
 }
@@ -61,8 +60,6 @@ main {
   border: none;
   background: #eee;
   color: #fb7299;
-
-  box-shadow: 2px 3px 4px black;
 }
 #msg::placeholder{
   font-size: 20px;
