@@ -1,84 +1,26 @@
 <script>
-  import firebaseConfig from '../src/config/fb'
+  import {arr,del,addMsg,hasMsg,hasName} from '../src/config/fb'
   import moment from 'moment'
   import { quintOut } from 'svelte/easing'
   import { flip } from 'svelte/animate'
   import { scale } from 'svelte/transition'
-  import { writable } from 'svelte/store'
-  import { initializeApp } from 'firebase/app'
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    deleteDoc,
-    doc,
-    onSnapshot,
-    orderBy,
-    query,
-    serverTimestamp,
-  } from 'firebase/firestore'
 
-  let arr = writable([])
   let msg = ''
   let nick = ''
-  let hasMsg = false
-  let hasName = false
   let nickn = null
 
-  initializeApp(firebaseConfig)
 
-  const db = getFirestore()
-  const colRef = collection(db, 'books')
-  const q = query(colRef, orderBy('createdAt', 'desc'))
-
-  onSnapshot(q, (snaptshot) => {
-    let items = []
-    snaptshot.docs.forEach((doc) => {
-      items.push({ id: doc.id, ...doc.data() })
-    })
-    $arr = items
-  })
-
-  const del = (id) => {
-    const docRef = doc(db, 'books', id)
-
-    deleteDoc(docRef)
-  }
 
   function getTime(t) {
     return moment(t * 1000).format('MM-DD  HH:mm:ss')
   }
   function handlekeyup(e) {
     if (e.key === 'Enter') {
-      addMsg()
+      addMsg(nick,msg,nickn)
     }
   }
 
-  function addMsg() {
-    if (nick.trim() == '') {
-      hasName = true
-      msg = ''
-      return
-    }
 
-    if (msg.trim() == '') {
-      hasName = false
-      hasMsg = true
-      return
-    }
-
-    hasMsg = false
-
-    addDoc(colRef, {
-      msg: nick + '： ' + msg,
-      createdAt: serverTimestamp(),
-    }).then(() => {
-      msg = ''
-    })
-
-    hasName = false
-    nickn.disabled = true
-  }
 </script>
 
 <div id="topname">
@@ -89,8 +31,8 @@
     id="nick"
     bind:value={nick}
   />
-  <button id="send" on:click={addMsg}>Send</button>
-  {#if hasName}
+  <button id="send" on:click={()=>addMsg(nick,msg,nickn)}>Send</button>
+  {#if $hasName}
     <p class="err">name…can't be empty~</p>
   {/if}
 </div>
@@ -104,7 +46,7 @@
       bind:value={msg}
       type="text"
     />
-    {#if hasMsg}
+    {#if $hasMsg}
       <p class="err">message…can't be empty~</p>
     {/if}
   </div>
