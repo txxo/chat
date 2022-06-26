@@ -15,6 +15,6 @@
     {/each}
   </ul>
 </div>
-<audio style="display: none;" bind:this={sound} controls>
-  <source src="/mixkit-long-pop.wav" type="audio/wav" />
+<audio preload="auto" style="display: none;" bind:this={sound} controls>
+  <source src="/hollow.ogg" type="audio/ogg" />
 </audio>
