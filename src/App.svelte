@@ -17,7 +17,13 @@
   function handlekeyup(e) {
     if (e.key === 'Enter') {
       addMsg(nick,msg,nickn)
+      msg=''
     }
+  }
+
+  function clickSend(){
+    addMsg(nick,msg,nickn)
+    msg=''
   }
 
 
@@ -31,7 +37,7 @@
     id="nick"
     bind:value={nick}
   />
-  <button id="send" on:click={()=>addMsg(nick,msg,nickn)}>Send</button>
+  <button id="send" on:click={clickSend}>Send</button>
   {#if $hasName}
     <p class="err">name…can't be empty~</p>
   {/if}

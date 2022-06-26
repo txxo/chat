@@ -48,7 +48,6 @@ const del = (id) => {
 function addMsg(nick,msg,nickn) {
   if (nick.trim() == '') {
     hasName.set(true)
-    msg = ''
     return
   }
 
