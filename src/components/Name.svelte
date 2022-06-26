@@ -1,15 +1,19 @@
 <script>
   import { addMsg } from '../config/fb'
-  import { hasMsg, hasName } from '../config/store'
+  import { hasMsg, hasName, addSound } from '../config/store'
   let msg = ''
   let nick = ''
   let nickn = null
-  let sound = null
+  let sound
   function handlekeyup(e) {
     if (e.key === 'Enter') {
       addMsg(nick, msg, nickn)
       msg = ''
-      sound.play()
+      if ($hasMsg) {
+        if ($addSound === true) {
+          sound.play()
+        }
+      }
     }
   }
   function clickSend() {
@@ -17,7 +21,9 @@
 
     msg = ''
     if ($hasMsg) {
-      sound.play()
+      if ($addSound === true) {
+        sound.play()
+      }
     }
   }
 </script>

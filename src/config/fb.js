@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { arr, hasMsg, hasName } from '../config/store'
+import { arr, hasMsg, hasName,addSound,delSound } from '../config/store'
 import {
   getFirestore,
   collection,
@@ -36,7 +36,9 @@ onSnapshot(q, (snaptshot) => {
 
 const del = (id) => {
   const docRef = doc(db, 'books', id)
-  deleteDoc(docRef)
+  deleteDoc(docRef).then(()=>{
+    delSound.set(true)
+  })
 }
 
 function addMsg(nick, msg, nickn) {
@@ -57,6 +59,7 @@ function addMsg(nick, msg, nickn) {
     msg: nick + '： ' + msg,
     createdAt: serverTimestamp(),
   }).then(() => {
+    addSound.set(true)
     msg = ''
   })
 
