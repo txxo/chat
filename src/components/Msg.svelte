@@ -23,8 +23,8 @@
 
 <li
   on:dblclick={handleDbclick}
-  in:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
-  out:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
+  in:scale={{ duration: 1000,delay:500, opacity: 0, easing: quintOut }}
+  out:scale={{ duration: 1000,delay:500, opacity: 0, easing: quintOut }}
 >
   <div id="time">
     {getTime(item.createdAt)}

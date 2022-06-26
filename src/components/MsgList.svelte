@@ -9,7 +9,7 @@
 <div>
   <ul>
     {#each $arr as item (item.id)}
-      <div animate:flip={{ duration: 1000, easing: quintOut }}>
+      <div animate:flip={{ duration: 1000,delay:500, easing: quintOut }}>
         <Msg {item} on:playSound={sound.play()} />
       </div>
     {/each}
