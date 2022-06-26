@@ -4,13 +4,18 @@
   import { scale } from 'svelte/transition'
   import moment from 'moment'
   export let item
+  let sound
   function getTime(t) {
     return moment(t * 1000).format('MM-DD  HH:mm:ss')
+  }
+  function handleDbclick() {
+    del(item.id)
+    sound.play()
   }
 </script>
 
 <li
-  on:dblclick={() => del(item.id)}
+  on:dblclick={handleDbclick}
   in:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
   out:scale={{ duration: 1000, opacity: 0, easing: quintOut }}
 >
@@ -19,3 +24,7 @@
   </div>
   {item.msg}
 </li>
+
+<audio style="display: none;" bind:this={sound} controls>
+  <source src="/mixkit-correct-answer-tone.wav" type="audio/wav" />
+</audio>

@@ -4,15 +4,21 @@
   let msg = ''
   let nick = ''
   let nickn = null
+  let sound = null
   function handlekeyup(e) {
     if (e.key === 'Enter') {
       addMsg(nick, msg, nickn)
       msg = ''
+      sound.play()
     }
   }
   function clickSend() {
     addMsg(nick, msg, nickn)
+
     msg = ''
+    if ($hasMsg) {
+      sound.play()
+    }
   }
 </script>
 
@@ -42,3 +48,6 @@
     <p class="err">Please input your Msg~</p>
   {/if}
 </div>
+<audio style="display: none;" bind:this={sound} controls>
+  <source src="/mixkit-long-pop.wav" type="audio/wav" />
+</audio>
