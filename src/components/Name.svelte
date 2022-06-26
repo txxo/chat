@@ -1,17 +1,19 @@
 <script>
   import { addMsg } from '../config/fb'
-  import { hasMsg, hasName } from '../config/store'
+  import { hasMsg, hasName} from '../config/store'
   let msg = ''
   let nick = ''
   let nickn = null
 
   function handlekeyup(e) {
     if (e.key === 'Enter') {
+
       addMsg(nick, msg, nickn)
       msg = ''
     }
   }
   function clickSend() {
+
     addMsg(nick, msg, nickn)
     msg = ''
   }
