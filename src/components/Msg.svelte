@@ -1,7 +1,7 @@
 <script>
   export let item
   import {  quintOut } from 'svelte/easing'
-  import { del } from '../../src/config/fb'
+  import { del } from '../config/fb'
   import { scale } from 'svelte/transition'
   import moment from 'moment'
   function getTime(t) {
