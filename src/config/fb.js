@@ -12,8 +12,8 @@ import {
 } from 'firebase/firestore'
 import { writable } from 'svelte/store'
 let arr = writable([])
-let hasMsg = writable(false)
-let hasName = writable(false)
+let hasMsg = writable(true)
+let hasName = writable(true)
 const fbconfig = {
   apiKey: 'AIzaSyB8KhwqSVpwhxbNguFTnoMwCtJQlwVUUrA',
   authDomain: 'demo1-aa7a1.firebaseapp.com',
@@ -47,17 +47,17 @@ const del = (id) => {
 
 function addMsg(nick,msg,nickn) {
   if (nick.trim() == '') {
-    hasName.set(true)
+    hasName.set(false)
     return
   }
 
   if (msg.trim() == '') {
-    hasName.set(false)
-    hasMsg.set(true)
+    hasName.set(true)
+    hasMsg.set(false)
     return
   }
 
-  hasMsg.set(false)
+  hasMsg.set(true)
 
   addDoc(colRef, {
     msg: nick + '： ' + msg,
@@ -66,7 +66,7 @@ function addMsg(nick,msg,nickn) {
     msg = ''
   })
 
-  hasName.set(false)
+  hasName.set(true)
   nickn.disabled = true
   nickn.style.display = 'none'
 }
